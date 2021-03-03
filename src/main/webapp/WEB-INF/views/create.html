@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="ribbon-content.css">
+
+</head>
+<body>
+<center>
+    <h1 class="ribbon">
+        <strong class="ribbon-content">Create Product</strong>
+    </h1>
+<form method="post" th:object="${p}">
+    <h4>Name</h4>
+    <input th:field="*{name}"><br>
+    <h4>Price</h4>
+    <input th:field="*{price}"><br>
+    <h4>Description</h4>
+    <input th:field="*{description}"><br>
+    <button type="submit">Create</button>
+</form>
+</center>
+</body>
+</html>
