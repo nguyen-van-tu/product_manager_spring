@@ -14,8 +14,8 @@ public class ProductService implements IProduct{
         productList.put(1,new Product(1,"IPhone12",30000,"New Like"));
         productList.put(2,new Product(2,"IPhone11",20000,"New Like"));
         productList.put(3,new Product(3,"IPhoneX",12000,"New Like"));
-        productList.put(4,new Product(4,"IPhone12",30000,"New Like"));
-        productList.put(5,new Product(5,"IPhone12",30000,"New Like"));
+        productList.put(4,new Product(4,"SamSung S8",10000,"New Like"));
+        productList.put(5,new Product(5,"Oppo f11",15000,"New Like"));
     }
     @Override
     public List<Product> fillAll() {
@@ -42,5 +42,16 @@ public class ProductService implements IProduct{
     @Override
     public void delete( int id) {
         productList.remove(id);
+    }
+
+    @Override
+    public List<Product> findByName(String name) {
+        List<Product> products = new ArrayList<>();
+        for (Product product : productList.values()) {
+            if (product.getName().contains(name)) {
+                products.add(product);
+            }
+        }
+        return products;
     }
 }

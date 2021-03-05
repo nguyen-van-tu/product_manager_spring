@@ -1,18 +1,22 @@
 package controller;
 
 import model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import service.ProductService;
+import service.IProduct;
+
+import service.ProductServiceORM;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/product")
 public class ProductController {
-    ProductService productService = new ProductService();
+    @Autowired
+    IProduct productService;
 
     @GetMapping("")
     public ModelAndView showList() {
@@ -46,16 +50,28 @@ public class ProductController {
     }
 
 
-    @PostMapping("/edit/{id}")
-    public ModelAndView editStudent(@PathVariable int id, @RequestParam String name, double price, String description) {
-        Product product = new Product(id, name,price , description);
-        productService.update(product, id);
-        return new ModelAndView("redirect:/product");
-    }
+//    @PostMapping("/edit/{id}")
+//    public ModelAndView editStudent(@PathVariable int id, @RequestParam String name, double price, String description) {
+//        Product product = new Product(id, name,price , description);
+//        productService.update(product, id);
+//        return new ModelAndView("redirect:/product");
+//    }
+@PostMapping("/edit/{id}")
+public ModelAndView editStudent(@ModelAttribute Product product){
+    productService.update(product);
+    return new ModelAndView("redirect:" + "/product");
+}
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable int id){
         productService.delete(id);
         return new ModelAndView("redirect:/product");
+    }
+    @PostMapping("")
+    public ModelAndView search(@RequestParam String search) {
+        ModelAndView modelAndView = new ModelAndView("list");
+        List<Product> result = productService.findByName(search);
+        modelAndView.addObject("listProduct", result);
+        return modelAndView;
     }
 
 

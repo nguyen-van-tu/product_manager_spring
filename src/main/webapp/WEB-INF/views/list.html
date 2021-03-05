@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="/layout :: head">
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="ribbon-content.css">
+
 </head>
 <body>
+
 <center>
+    <form method="post">
+        <input type="text" name="search" placeholder="enter your name customer">
+        <input type="submit" value="Search">
+    </form>
     <h1 class="ribbon">
         <strong class="ribbon-content">List Product</strong>
     </h1>
-    <a href="/product/create">Add new product</a><br>
+    <a href="/product/create">Add new product</a><br><br>
 <table border="1px">
     <tr style="background-color: yellow">
         <td>Name</td>
@@ -25,10 +30,11 @@
         <td th:text="${s.price}"></td>
         <td th:text="${s.description}"></td>
         <td><a th:href="@{/product/edit/{id}(id=${s.id})}"> Sửa</a></td>
-        <td><a th:href="@{/product/delete/{id}(id=${s.id})}"> Xóa</a></td>
+        <td><a th:href="@{/product/delete/{id}(id=${s.id})}" onclick="return confirm('Bạn có muốn xóa')"> Xóa</a></td>
     </tr>
     </th:block>
 </table>
+    <footer th:replace="/layout :: footer"></footer>
 </center>
 </body>
 </html>

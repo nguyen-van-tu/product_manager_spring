@@ -8,6 +8,7 @@ public interface IProduct {
     List<Product> fillAll();
     Product findById(int id);
     Product save(Product product);
-    Product update(Product product, int id);
+    Product update(Product product);
     void delete( int id);
+    List<Product>findByName(String name);
 }
